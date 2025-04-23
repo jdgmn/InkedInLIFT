@@ -3,6 +3,6 @@ import { CustomerDbDto, toCustomerDto } from "../domain/customer.domain.ts";
 
 export async function fetchCustomers() {
     const [rows] = await connection.execute("SELECT * FROM customers");
-    const customers = (rows as CustomerDbDto[]).map(toCustomerDto); // Transform data
+    const customers = (rows as CustomerDbDto[]).map(toCustomerDto); 
     return customers;
 }

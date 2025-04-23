@@ -5,3 +5,4 @@ export const getCustomers = async (c: Context) => {
     const customers = await fetchCustomers();
     return c.json(customers);
 };
+
