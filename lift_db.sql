@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2025 at 04:35 PM
+-- Generation Time: Apr 23, 2025 at 04:52 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.3.13
 
@@ -20,6 +20,37 @@ SET time_zone = "+00:00";
 --
 -- Database: `lift_db`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `active_member_sessions`
+-- (See below for the actual view)
+--
+CREATE TABLE `active_member_sessions` (
+`Customer_ID` int(11)
+,`Date` date
+,`FName` varchar(50)
+,`LName` varchar(50)
+,`Check-in` time
+,`Check-out` time
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `active_non_member_sessions`
+-- (See below for the actual view)
+--
+CREATE TABLE `active_non_member_sessions` (
+`Customer_ID` int(11)
+,`Date` date
+,`FName` varchar(50)
+,`LName` varchar(50)
+,`Payment_Status` enum('paid','unpaid')
+,`Check-in` time
+,`Check-out` time
+);
 
 -- --------------------------------------------------------
 
@@ -90,6 +121,24 @@ CREATE TABLE `non_members` (
   `Customer_ID` int(11) NOT NULL,
   `Payment_Status` enum('paid','unpaid') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `active_member_sessions`
+--
+DROP TABLE IF EXISTS `active_member_sessions`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `active_member_sessions`  AS SELECT `a`.`Customer_ID` AS `Customer_ID`, `a`.`Date` AS `Date`, `c`.`FName` AS `FName`, `c`.`LName` AS `LName`, `a`.`Check-in` AS `Check-in`, `a`.`Check-out` AS `Check-out` FROM (`active_sessions` `a` join `customers` `c` on(`a`.`Customer_ID` = `c`.`ID`)) WHERE `a`.`Customer_Type` = 'member' ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `active_non_member_sessions`
+--
+DROP TABLE IF EXISTS `active_non_member_sessions`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `active_non_member_sessions`  AS SELECT `a`.`Customer_ID` AS `Customer_ID`, `a`.`Date` AS `Date`, `c`.`FName` AS `FName`, `c`.`LName` AS `LName`, `n`.`Payment_Status` AS `Payment_Status`, `a`.`Check-in` AS `Check-in`, `a`.`Check-out` AS `Check-out` FROM ((`active_sessions` `a` join `customers` `c` on(`a`.`Customer_ID` = `c`.`ID`)) join `non_members` `n` on(`a`.`Customer_ID` = `n`.`Customer_ID`)) WHERE `a`.`Customer_Type` = 'non-member' ;
 
 --
 -- Indexes for dumped tables
