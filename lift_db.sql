@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2025 at 12:48 PM
+-- Generation Time: Apr 23, 2025 at 04:35 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.3.13
 
@@ -32,7 +32,7 @@ CREATE TABLE `active_sessions` (
   `Customer_ID` int(11) NOT NULL,
   `Date` date NOT NULL,
   `Check-in` time NOT NULL,
-  `Check-out` time NOT NULL,
+  `Check-out` time DEFAULT NULL,
   `Customer_Type` enum('member','non-member') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
