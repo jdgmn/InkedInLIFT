@@ -1,5 +1,5 @@
 import { Hono } from "@hono/hono";
-import { getCustomers } from "../controllers/customer_controller.ts";
+import { getCustomers } from "../controllers/customer.controller.ts";
 
 
 

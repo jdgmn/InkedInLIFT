@@ -1,6 +1,6 @@
 import "https://deno.land/std@0.192.0/dotenv/load.ts";
 import { Hono } from "@hono/hono";
-import {setupRoutes} from "./routes/setup_routes.ts";
+import {setupRoutes} from "./routes/setup.routes.ts";
 import { logger } from "./middleware/logger.ts";
 
 const app = new Hono();
