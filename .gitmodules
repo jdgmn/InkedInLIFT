@@ -1,3 +1,0 @@
-[submodule "lift_backend"]
-	path = lift_backend
-	url = https://github.com/egwolk/lift_backend.git
