@@ -1,0 +1,94 @@
+<?php
+include 'dbcon.php';
+include 'functions.php';  // for getRemainingTime()
+
+// for editing members
+$editing = false;
+$edit_member = null;
+if (!empty($_GET['renew']) && is_numeric($_GET['renew'])) {
+    $stmt = $pdo->prepare("SELECT * FROM memberships WHERE id = ?");
+    $stmt->execute([$_GET['renew']]);
+    $edit_member = $stmt->fetch();
+    $editing = !!$edit_member;
+}
+
+// fetch memberships
+$memberships = $pdo->query("SELECT * FROM memberships ORDER BY status DESC, end_date DESC")->fetchAll();
+$now = new DateTimeImmutable();
+
+// expiry check
+foreach ($memberships as &$m) {
+    $end = new DateTimeImmutable($m['end_date']);
+    if ($m['status'] === 'active' && $now > $end) {
+        $pdo->prepare("UPDATE memberships SET status='inactive' WHERE id=?")->execute([$m['id']]);
+        $m['status'] = 'inactive';
+    }
+    $m['remaining'] = $m['status'] === 'inactive' ? 'Expired' : getRemainingTime($end);
+}
+unset($m);
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>LIFT - Membership Management</title>
+    <script>
+        function confirmDelete(url) {
+            if (confirm("Delete this membership?")) {
+                window.location.href = url;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Membership Management</h1>
+
+    <!-- adding or renewing membership -->
+    <form method="POST" action="process_membership.php">
+        <input type="hidden" name="edit_id" value="<?= $editing ? htmlspecialchars($edit_member['id']) : '' ?>">
+        <input type="text" name="name" placeholder="Customer Name" required
+            value="<?= $editing ? htmlspecialchars($edit_member['name']) : '' ?>">
+        <input type="email" name="email" placeholder="Email (optional)"
+            value="<?= $editing ? htmlspecialchars($edit_member['email']) : '' ?>">
+        <input type="text" name="phone" placeholder="Phone (optional)"
+            value="<?= $editing ? htmlspecialchars($edit_member['phone']) : '' ?>">
+        <input type="number" name="months" placeholder="Number of Months" min="1" required>
+        <button type="submit"><?= $editing ? 'Renew Membership' : 'Add Membership' ?></button>
+        <?php if ($editing): ?><a href="membership_page.php">Cancel</a><?php endif; ?>
+    </form>
+
+    <h2>Memberships</h2>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Remaining</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        <?php foreach ($memberships as $m): ?>
+            <tr>
+                <td><?= htmlspecialchars($m['name']) ?></td>
+                <td><?= htmlspecialchars($m['email']) ?></td>
+                <td><?= htmlspecialchars($m['phone']) ?></td>
+                <td><?= date('m-d-Y', strtotime($m['start_date'])) ?></td>
+                <td><?= date('m-d-Y', strtotime($m['end_date'])) ?></td>
+                <td><?= $m['remaining'] ?></td>
+                <td><?= $m['status'] ?></td>
+                <td>
+                    <a href="membership_page.php?renew=<?= $m['id'] ?>">Add</a> |
+                    <button onclick="confirmDelete('process_membership.php?delete_id=<?= $m['id'] ?>')">Delete</button>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+
+    <br><a href="index.php">Back to Main Page</a>
+</body>
+
+</html>
