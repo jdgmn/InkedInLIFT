@@ -54,7 +54,7 @@ unset($m);
             value="<?= $editing ? htmlspecialchars($edit_member['email']) : '' ?>">
         <input type="text" name="phone" placeholder="Phone (optional)"
             value="<?= $editing ? htmlspecialchars($edit_member['phone']) : '' ?>">
-        <input type="number" name="months" placeholder="Number of Months" min="1" required>
+        <input type="number" name="months" placeholder="Number of Months" min="0" required>
         <button type="submit"><?= $editing ? 'Renew Membership' : 'Add Membership' ?></button>
         <?php if ($editing): ?><a href="membership_page.php">Cancel</a><?php endif; ?>
     </form>
