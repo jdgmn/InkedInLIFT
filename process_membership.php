@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $months = (int) ($_POST['months'] ?? 0);
     $edit_id = $_POST['edit_id'] ?? null;
 
-    if ($months < 1)
+    if ($months < 0)
         die("Invalid months value.");
 
     if ($edit_id) {
