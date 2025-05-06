@@ -1,6 +1,6 @@
 <?php
 include 'dbcon.php';
-include 'functions.php';  // for getRemainingTime()
+include 'functions.php';  // for getRemainingTime(), searchTable()
 
 // for editing members
 $editing = false;
@@ -12,8 +12,10 @@ if (!empty($_GET['renew']) && is_numeric($_GET['renew'])) {
     $editing = !!$edit_member;
 }
 
-// fetch memberships
-$memberships = $pdo->query("SELECT * FROM memberships ORDER BY status DESC, end_date DESC")->fetchAll();
+// fetch memberships with optional search
+$searchTerm = $_GET['search'] ?? '';
+$memberships = searchTable($pdo, 'memberships', ['name', 'email', 'phone'], '', 'status DESC, end_date DESC', $searchTerm);
+
 $now = new DateTimeImmutable();
 
 // expiry check
@@ -30,18 +32,9 @@ unset($m);
 
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>LIFT - Membership Management</title>
-    <script>
-        function confirmDelete(url) {
-            if (confirm("Delete this membership?")) {
-                window.location.href = url;
-            }
-        }
-    </script>
 </head>
-
 <body>
     <h1>Membership Management</h1>
 
@@ -49,17 +42,26 @@ unset($m);
     <form method="POST" action="process_membership.php">
         <input type="hidden" name="edit_id" value="<?= $editing ? htmlspecialchars($edit_member['id']) : '' ?>">
         <input type="text" name="name" placeholder="Customer Name" required
-            value="<?= $editing ? htmlspecialchars($edit_member['name']) : '' ?>">
+               value="<?= $editing ? htmlspecialchars($edit_member['name']) : '' ?>">
         <input type="email" name="email" placeholder="Email (optional)"
-            value="<?= $editing ? htmlspecialchars($edit_member['email']) : '' ?>">
+               value="<?= $editing ? htmlspecialchars($edit_member['email']) : '' ?>">
         <input type="text" name="phone" placeholder="Phone (optional)"
-            value="<?= $editing ? htmlspecialchars($edit_member['phone']) : '' ?>">
+               value="<?= $editing ? htmlspecialchars($edit_member['phone']) : '' ?>">
         <input type="number" name="months" placeholder="Number of Months" min="0" required>
         <button type="submit"><?= $editing ? 'Renew Membership' : 'Add Membership' ?></button>
         <?php if ($editing): ?><a href="membership_page.php">Cancel</a><?php endif; ?>
     </form>
 
     <h2>Memberships</h2>
+
+    <!-- search bar -->
+    <form method="GET" action="membership_page.php" style="margin-bottom: 1em;">
+        <input type="text" name="search" placeholder="Search by name, email, or phone"
+               value="<?= htmlspecialchars($searchTerm) ?>">
+        <button type="submit">Search</button>
+        <a href="membership_page.php"><button type="button">Reset</button></a>
+    </form>
+
     <table border="1">
         <tr>
             <th>Name</th>
@@ -82,7 +84,7 @@ unset($m);
                 <td><?= $m['status'] ?></td>
                 <td>
                     <a href="membership_page.php?renew=<?= $m['id'] ?>">Add</a> |
-                    <button onclick="confirmDelete('process_membership.php?delete_id=<?= $m['id'] ?>')">Delete</button>
+                    <button onclick="if(confirm('Delete this membership?')) window.location.href='process_membership.php?delete_id=<?= $m['id'] ?>'">Delete</button>
                 </td>
             </tr>
         <?php endforeach; ?>
@@ -90,5 +92,4 @@ unset($m);
 
     <br><a href="index.php">Back to Main Page</a>
 </body>
-
 </html>
