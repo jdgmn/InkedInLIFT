@@ -5,27 +5,22 @@ include 'functions.php'; // for searchTable()
 // fetch table
 $searchTerm = $_GET['search'] ?? '';
 $current_checkins = searchTable($pdo, 'logbook', ['name'], 'checkout_time IS NULL', 'checkin_time DESC', $searchTerm);
+
+ob_start();
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>LIFT - Main</title>
-</head>
-<body>
-    <h1>Logging Integrated Fitness Tracking</h1>
-
+<div class="section-center">
     <form action="checkin_checkout.php" method="POST">
         <input type="text" name="name" placeholder="Customer Name" required>
         <button type="submit">Check In</button>
     </form>
 
-    <h2>Currently Checked-In</h2>
+    <h3>Check-Ins</h3>
 
     <!-- search bar -->
     <form method="GET" action="index.php" style="margin-bottom: 1em;">
         <input type="text" name="search" placeholder="Search by name"
-               value="<?= htmlspecialchars($searchTerm) ?>">
+                value="<?= htmlspecialchars($searchTerm) ?>">
         <button type="submit">Search</button>
         <a href="index.php"><button type="button">Reset</button></a>
     </form>
@@ -58,9 +53,11 @@ $current_checkins = searchTable($pdo, 'logbook', ['name'], 'checkout_time IS NUL
             <?php endforeach; ?>
         <?php endif; ?>
     </table>
+</div>
 
-    <br>
-    <a href="logbook.php">View Logbook</a><br>
-    <a href="membership_page.php">Manage Memberships</a>
-</body>
-</html>
+<?php
+$content = ob_get_clean();
+$title = 'LIFT - Main';
+
+include 'components/layout.php';
+?>
