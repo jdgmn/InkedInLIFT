@@ -6,11 +6,11 @@
 </head>
 <body>
     <?php include 'components/navbar.php'; ?> 
-
     <main>
         <div class="section">
             <?= $content ?? '' ?>
         </div> 
     </main>
+    <?php include 'components/footer.php'; ?>
 </body>
 </html>

@@ -60,7 +60,7 @@ p {
     max-width: 1170px;
 }
 main {
-    min-height: 100vh;
+    min-height: calc(100vh - 3.5rem);
     display: grid;
     place-items: center;
 }
