@@ -17,12 +17,11 @@ ob_start();
 <h3>Check-Ins</h3>
 
 <!-- search bar -->
-<form method="GET" action="index.php" style="margin-bottom: 1em;">
-    <input type="text" name="search" placeholder="Search by name"
-            value="<?= htmlspecialchars($searchTerm) ?>">
-    <button type="submit">Search</button>
-    <a href="index.php"><button type="button">Reset</button></a>
-</form>
+<?php
+$action = 'index.php';
+$placeholder = 'Search by name';
+include 'components/search.php';
+?>
 
 <table border="1">
     <tr>

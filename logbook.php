@@ -11,12 +11,11 @@ ob_start();
 <h3>Logbook - Previous Check-ins</h3>
 
 <!-- search bar -->
-<form method="GET" action="logbook.php" style="margin-bottom: 1em;">
-    <input type="text" name="search" placeholder="Search by name"
-            value="<?= htmlspecialchars($searchTerm) ?>">
-    <button type="submit">Search</button>
-    <a href="logbook.php"><button type="button">Reset</button></a>
-</form>
+<?php
+$action = 'logbook.php';
+$placeholder = 'Search by name';
+include 'components/search.php';
+?>
 
 <table border="1">
     <tr>

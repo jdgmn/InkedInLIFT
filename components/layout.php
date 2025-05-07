@@ -7,9 +7,11 @@
 <body>
     <?php include 'components/navbar.php'; ?> 
     <main>
-        <div class="section">
-            <?= $content ?? '' ?>
-        </div> 
+        <div class="section-center">
+            <div class="section">
+                <?= $content ?? '' ?>
+            </div> 
+        </div>
     </main>
     <?php include 'components/footer.php'; ?>
 </body>

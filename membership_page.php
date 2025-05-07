@@ -51,12 +51,11 @@ ob_start();
 <h2>Memberships</h2>
 
 <!-- search bar -->
-<form method="GET" action="membership_page.php" style="margin-bottom: 1em;">
-    <input type="text" name="search" placeholder="Search by name, email, or phone"
-            value="<?= htmlspecialchars($searchTerm) ?>">
-    <button type="submit">Search</button>
-    <a href="membership_page.php"><button type="button">Reset</button></a>
-</form>
+<?php
+$action = 'membership_page.php';
+$placeholder = 'Search by name, email, or phone';
+include 'components/search.php';
+?>
 
 <table border="1">
     <tr>
