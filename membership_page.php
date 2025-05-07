@@ -73,21 +73,25 @@ unset($m);
             <th>Status</th>
             <th>Actions</th>
         </tr>
-        <?php foreach ($memberships as $m): ?>
-            <tr>
-                <td><?= htmlspecialchars($m['name']) ?></td>
-                <td><?= htmlspecialchars($m['email']) ?></td>
-                <td><?= htmlspecialchars($m['phone']) ?></td>
-                <td><?= date('m-d-Y', strtotime($m['start_date'])) ?></td>
-                <td><?= date('m-d-Y', strtotime($m['end_date'])) ?></td>
-                <td><?= $m['remaining'] ?></td>
-                <td><?= $m['status'] ?></td>
-                <td>
-                    <a href="membership_page.php?renew=<?= $m['id'] ?>">Add</a> |
-                    <button onclick="if(confirm('Delete this membership?')) window.location.href='process_membership.php?delete_id=<?= $m['id'] ?>'">Delete</button>
-                </td>
-            </tr>
-        <?php endforeach; ?>
+        <?php if (empty($memberships)): ?>
+            <tr><td colspan="8" style="text-align: center;">No records found</td></tr>
+        <?php else: ?>
+            <?php foreach ($memberships as $m): ?>
+                <tr>
+                    <td><?= htmlspecialchars($m['name']) ?></td>
+                    <td><?= htmlspecialchars($m['email']) ?></td>
+                    <td><?= htmlspecialchars($m['phone']) ?></td>
+                    <td><?= date('m-d-Y', strtotime($m['start_date'])) ?></td>
+                    <td><?= date('m-d-Y', strtotime($m['end_date'])) ?></td>
+                    <td><?= $m['remaining'] ?></td>
+                    <td><?= $m['status'] ?></td>
+                    <td>
+                        <a href="membership_page.php?renew=<?= $m['id'] ?>">Add</a> |
+                        <button onclick="if(confirm('Delete this membership?')) window.location.href='process_membership.php?delete_id=<?= $m['id'] ?>'">Delete</button>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif;?>
     </table>
 
     <br><a href="index.php">Back to Main Page</a>
