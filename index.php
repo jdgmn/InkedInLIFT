@@ -38,19 +38,25 @@ $current_checkins = searchTable($pdo, 'logbook', ['name'], 'checkout_time IS NUL
             <th>Checkout</th>
             <th>Delete</th>
         </tr>
-        <?php foreach ($current_checkins as $c):
-            $dt = new DateTimeImmutable($c['checkin_time']);
-        ?>
+        <?php if(empty($current_checkins)): ?>
             <tr>
-                <td><?= htmlspecialchars($c['name']) ?></td>
-                <td><?= $dt->format('m-d-Y') ?></td> <!-- mm-dd-yyyy -->
-                <td><?= $dt->format('h:i A') ?></td> <!-- hh:mm AM/PM -->
-                <td><a href="checkin_checkout.php?id=<?= $c['id'] ?>">Check-out</a></td>
-                <td>
-                    <button onclick="if(confirm('Delete this record?')) window.location.href='delete_checkin.php?id=<?= $c['id'] ?>&from=index'">Delete</button>
-                </td>
+                <td colspan="8" style="text-align: center;">No records found</td>
             </tr>
-        <?php endforeach; ?>
+        <?php else: ?>
+            <?php foreach ($current_checkins as $c):
+                $dt = new DateTimeImmutable($c['checkin_time']);
+            ?>
+                <tr>
+                    <td><?= htmlspecialchars($c['name']) ?></td>
+                    <td><?= $dt->format('m-d-Y') ?></td> <!-- mm-dd-yyyy -->
+                    <td><?= $dt->format('h:i A') ?></td> <!-- hh:mm AM/PM -->
+                    <td><a href="checkin_checkout.php?id=<?= $c['id'] ?>">Check-out</a></td>
+                    <td>
+                        <button onclick="if(confirm('Delete this record?')) window.location.href='delete_checkin.php?id=<?= $c['id'] ?>&from=index'">Delete</button>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
     </table>
 
     <br>
