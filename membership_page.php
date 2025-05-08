@@ -116,8 +116,8 @@ ob_start();
 
 <?php
 $content = ob_get_clean();
-include 'components/layout.php';
 $title = 'LIFT - Memberships';
+include 'components/layout.php';
 ?>
 
 
