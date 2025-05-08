@@ -12,7 +12,9 @@ nav{
 }
 .logo{
     margin: 0;
+    color: hsl(209, 34%, 30%); 
 }
+
 .nav-header {
     padding: 0;
 }
