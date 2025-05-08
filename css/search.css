@@ -1,7 +1,7 @@
-.search-container {
+.comp-container {
     display: flex;
 }
-.search-input {
+input {
     width: 100%;
     padding: 10px 40px 10px 10px;
     border: 1px solid #ccc;
@@ -11,9 +11,10 @@
     background: transparent;
 }
 
+
 .reset-button {
     position: absolute;
-    right: 120px; 
+    right: 85px; 
     top: 50%;
     transform: translateY(-50%);
     background: transparent;
@@ -28,7 +29,7 @@
     outline: none;
 }
 
-.search-button {
+button {
     padding: 10px 20px;
     background-color: hsl(209, 61%, 16%);
     color: white;
@@ -36,5 +37,15 @@
     border-radius: 4px;
     cursor: pointer;
     margin-left: 10px;
+    white-space: nowrap;
+}
+.checkin{
+    background-color: hsl(150, 47%, 41%);
+}
+.checkout{
+    background-color: hsl(209, 62%, 31%);
+}
+.delete{
+    background-color: hsl(0, 64%, 46%);
 }
 

@@ -30,7 +30,7 @@ include 'components/search.php';
     <tbody>
         <?php if (empty($past_checkins)): ?>
             <tr>
-                <td colspan="8" style="text-align: center;">No records found</td>
+                <td colspan="5">No records found</td>
             </tr>
         <?php else: ?>
             <?php foreach ($past_checkins as $c):
