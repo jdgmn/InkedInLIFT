@@ -48,3 +48,27 @@ button {
     background-color: hsl(0, 64%, 46%);
 }
 
+/* dark mode */
+.dark-mode  input{
+    border: 1px solid #3E4446;
+    color: #FFFFFF;
+}
+.dark-mode input::placeholder{
+    color: #686662;
+}
+.dark-mode .reset-button {
+    color: #A8A095;
+}
+button .dark-mode {
+    background-color: #0D2235;
+    color: #E8E6E3;
+}
+.dark-mode .checkin{
+    background-color: #2C7B54;
+}
+.dark-mode .checkout{
+    background-color: #184166;
+}
+.dark-mode .delete{
+    background-color: #9A2222;
+}
