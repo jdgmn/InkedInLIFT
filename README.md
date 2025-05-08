@@ -2,7 +2,6 @@
 
 Welcome to **LIFT**, a web-based system designed to streamline gym membership tracking and check-in/check-out logging. This project is the final group project for **ENGGSF** by Team **Inkedin**. The system is developed for **Steel Iron Master Gym** to provide an efficient solution for managing gym operations.
 
----
 
 ## 📋 Project Overview
 
@@ -13,7 +12,16 @@ LIFT is a web-based application that helps gym owners and staff:
 
 Our mission is to provide a reliable and user-friendly system that enhances the fitness journey for both gym owners and their members.
 
----
+
+## 👥 Authors
+
+This project was proudly developed by **Team Inkedin**:
+- Covacha, Erin Drew [@egwolk](https://github.com/egwolk)
+- De Guzman, Jonah Andre [@jdgmn](https://github.com/jdgmn)
+- Pablo, Lance Angelo [@aimgoinzain](https://github.com/aimgoinzain)
+- Ragel, William Rap-El [@rap-el](https://github.com/rap-el)
+- Robles, Stephen Ezekiel [@tpen14](https://github.com/tpen14)
+
 
 ## 🚀 Getting Started
 
@@ -50,7 +58,6 @@ Follow these instructions to run the system locally on your machine.
      ```plaintext
      http://localhost/InkedInLIFT
      ```
----
 
 ### 🔧 Technologies Used
 
@@ -63,15 +70,4 @@ This project was built using the following technologies:
 
 ---
 
-## 👥 Authors
-
-This project was proudly developed by **Team Inkedin**:
-- Covacha, Erin Drew [@egwolk](https://github.com/egwolk)
-- De Guzman, Jonah Andre [@jdgmn](https://github.com/jdgmn)
-- Pablo, Lance Angelo [@aimgoinzain](https://github.com/aimgoinzain)
-- Ragel, William Rap-El [@rap-el](https://github.com/rap-el)
-- Robles, Stephen Ezekiel [@tpen14](https://github.com/tpen14)
-
----
-
-### ❤️ Made with 💗 by Inkedin
+### Made with 💗 by Inkedin
