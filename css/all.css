@@ -61,9 +61,8 @@ p {
   
 .section-center {
     height: 100%;
-    width: 95vw;
+    width: 90vw;
     margin: 0 auto;
-    max-width: 1170px;
 }
 main {
     min-height: calc(100vh - 3.5rem);
@@ -80,7 +79,9 @@ table{
     border-radius: 15px;
     overflow: hidden;
     table-layout: fixed;
+    text-align: center;
 }
+
 thead{
     border-radius: 15px;
 }
@@ -103,6 +104,7 @@ tbody tr:nth-child(odd) {
 }
 td{
     padding: .5rem 1rem;
+    word-wrap:break-word;
 }
 
 .container{
@@ -116,4 +118,7 @@ td{
 }
 .actions{
     padding: 1rem 0 ;
+}
+.single{
+    justify-content: end;
 }

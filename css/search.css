@@ -1,5 +1,6 @@
 .comp-container {
     display: flex;
+    position: relative;
 }
 input {
     width: 100%;
@@ -14,9 +15,7 @@ input {
 
 .reset-button {
     position: absolute;
-    right: 85px; 
-    top: 50%;
-    transform: translateY(-50%);
+    right: 80px;
     background: transparent;
     border: none;
     font-size: 18px;
