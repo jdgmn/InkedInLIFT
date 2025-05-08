@@ -8,14 +8,18 @@ $past_checkins = searchTable($pdo, 'logbook', ['name'], 'checkout_time IS NOT NU
 ob_start();
 ?>
 
-<h3>Logbook - Previous Check-ins</h3>
+<div class="conatainer title">
+    <h2>Logbook - Previous Check-ins</h2>
+</div>
 
 <!-- search bar -->
-<?php
-$action = 'logbook.php';
-$placeholder = 'Search by name';
-include 'components/search.php';
-?>
+<div class="container actions single">
+    <?php
+        $action = 'logbook.php';
+        $placeholder = 'Search by name';
+        include 'components/search.php';
+    ?>
+</div>
 
 <table>
     <thead>
@@ -30,7 +34,7 @@ include 'components/search.php';
     <tbody>
         <?php if (empty($past_checkins)): ?>
             <tr>
-                <td colspan="8" style="text-align: center;">No records found</td>
+                <td colspan="5">No records found</td>
             </tr>
         <?php else: ?>
             <?php foreach ($past_checkins as $c):
@@ -44,6 +48,7 @@ include 'components/search.php';
                     <td><?= $checkout->format('h:i A') ?></td>
                     <td>
                         <button
+                            class="delete"
                             onclick="if(confirm('Delete this record?')) window.location.href='delete_checkin.php?id=<?= $c['id'] ?>&from=logbook'">
                             Delete
                         </button>

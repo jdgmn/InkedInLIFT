@@ -9,19 +9,27 @@ $current_checkins = searchTable($pdo, 'logbook', ['name'], 'checkout_time IS NUL
 ob_start();
 ?>
 
-<form action="checkin_checkout.php" method="POST">
-    <input type="text" name="name" placeholder="Customer Name" required>
-    <button type="submit">Check In</button>
-</form>
+<div class="container title">
+    <h2>Check-Ins</h2>
+</div>
 
-<h3>Check-Ins</h3>
+<div class="container actions">
+    <form action="checkin_checkout.php" method="POST">
+        <div class="comp-container">
+            <input type="text" name="name" placeholder="Customer Name" required>
+            <button type="submit" class="checkin">Check-in</button>
+        </div>
+    </form>
 
-<!-- search bar -->
-<?php
-$action = 'index.php';
-$placeholder = 'Search by name';
-include 'components/search.php';
-?>
+
+
+    <!-- search bar -->
+    <?php
+    $action = 'index.php';
+    $placeholder = 'Search by name';
+    include 'components/search.php';
+    ?>
+</div>
 
 <table>
     <thead>
@@ -36,7 +44,7 @@ include 'components/search.php';
     <tbody>
     <?php if(empty($current_checkins)): ?>
         <tr>
-            <td colspan="8" style="text-align: center;">No records found</td>
+            <td colspan="5">No records found</td>
         </tr>
     <?php else: ?>
         <?php foreach ($current_checkins as $c):
@@ -46,9 +54,9 @@ include 'components/search.php';
                 <td><?= htmlspecialchars($c['name']) ?></td>
                 <td><?= $dt->format('m-d-Y') ?></td> <!-- mm-dd-yyyy -->
                 <td><?= $dt->format('h:i A') ?></td> <!-- hh:mm AM/PM -->
-                <td><a href="checkin_checkout.php?id=<?= $c['id'] ?>">Check-out</a></td>
+                <td><a href="checkin_checkout.php?id=<?= $c['id'] ?>"><button class="checkout">Check-out</button></a></td>
                 <td>
-                    <button onclick="if(confirm('Delete this record?')) window.location.href='delete_checkin.php?id=<?= $c['id'] ?>&from=index'">Delete</button>
+                    <button class="delete" onclick="if(confirm('Delete this record?')) window.location.href='delete_checkin.php?id=<?= $c['id'] ?>&from=index'">Delete</button>
                 </td>
             </tr>
         <?php endforeach; ?>

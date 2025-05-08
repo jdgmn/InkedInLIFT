@@ -1,6 +1,6 @@
-<link rel="stylesheet" type="text/css" href="css/search.css">
-<form method="GET" action="<?= htmlspecialchars($action ?? '') ?>" class="search-form" style="position: relative; margin-bottom: 1em;">
-   <div class="search-container">
+<link rel="stylesheet" type="text/css" href="css/search.css?v=<?php echo time(); ?>">
+<form method="GET" action="<?= htmlspecialchars($action ?? '') ?>">
+   <div class="comp-container">
         <input type="text" name="search" id="search-input" placeholder="<?= htmlspecialchars($placeholder ?? 'Search...') ?>"
            value="<?= htmlspecialchars($searchTerm ?? '') ?>" class="search-input">
            <a href="<?= htmlspecialchars($action ?? '') ?>"><button type="button" id="reset-button" class="reset-button" style="<?= !empty($searchTerm) ? '' : 'display: none;' ?>">&times;</button></a>

@@ -51,10 +51,9 @@ p {
 
 
 .section {
-    padding: 3rem 0;
+    padding: 2rem 0;
     text-align: center;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     display: flex;
     height: 100%;
@@ -62,9 +61,8 @@ p {
   
 .section-center {
     height: 100%;
-    width: 95vw;
+    width: 90vw;
     margin: 0 auto;
-    max-width: 1170px;
 }
 main {
     min-height: calc(100vh - 3.5rem);
@@ -80,7 +78,10 @@ table{
     border-collapse: collapse;
     border-radius: 15px;
     overflow: hidden;
+    table-layout: fixed;
+    text-align: center;
 }
+
 thead{
     border-radius: 15px;
 }
@@ -92,8 +93,32 @@ thead tr th{
 tbody tr{
     background-color: transparent;
     color: hsl(209, 61%, 16%);
-    border-bottom: 1px solid hsl(209, 61%, 16%);
+    border-bottom: 1px solid hsl(210, 22%, 49%);
+}
+tbody tr:nth-child(even) {
+    background-color: white; 
+}
+
+tbody tr:nth-child(odd) {
+    background-color: transparent; 
 }
 td{
     padding: .5rem 1rem;
+    word-wrap:break-word;
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.title{
+    justify-content: center;
+}
+.actions{
+    padding: 1rem 0 ;
+}
+.single{
+    justify-content: end;
 }
