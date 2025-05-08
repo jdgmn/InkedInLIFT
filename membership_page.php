@@ -15,7 +15,7 @@ if (!empty($_GET['renew']) && is_numeric($_GET['renew'])) {
 
 // fetch memberships with optional search
 $searchTerm = $_GET['search'] ?? '';
-$memberships = searchTable($pdo, 'memberships', ['name', 'email', 'phone'], '', 'status DESC, end_date DESC', $searchTerm);
+$memberships = searchTable($pdo, 'memberships', ['name', 'email', 'phone'], '', 'status ASC, end_date ASC', $searchTerm);
 
 $now = new DateTimeImmutable();
 
