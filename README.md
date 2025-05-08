@@ -59,7 +59,7 @@ Follow these instructions to run the system locally on your machine.
      http://localhost/InkedInLIFT
      ```
 
-### 🔧 Technologies Used
+## 🔧 Technologies Used
 
 This project was built using the following technologies:
 - **PHP**: Backend development
