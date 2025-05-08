@@ -57,36 +57,40 @@ $placeholder = 'Search by name, email, or phone';
 include 'components/search.php';
 ?>
 
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Phone</th>
-        <th>Start</th>
-        <th>End</th>
-        <th>Remaining</th>
-        <th>Status</th>
-        <th>Actions</th>
-    </tr>
-    <?php if (empty($memberships)): ?>
-        <tr><td colspan="8" style="text-align: center;">No records found</td></tr>
-    <?php else: ?>
-        <?php foreach ($memberships as $m): ?>
-            <tr>
-                <td><?= htmlspecialchars($m['name']) ?></td>
-                <td><?= htmlspecialchars($m['email']) ?></td>
-                <td><?= htmlspecialchars($m['phone']) ?></td>
-                <td><?= date('m-d-Y', strtotime($m['start_date'])) ?></td>
-                <td><?= date('m-d-Y', strtotime($m['end_date'])) ?></td>
-                <td><?= $m['remaining'] ?></td>
-                <td><?= $m['status'] ?></td>
-                <td>
-                    <a href="membership_page.php?renew=<?= $m['id'] ?>">Add</a> |
-                    <button onclick="if(confirm('Delete this membership?')) window.location.href='process_membership.php?delete_id=<?= $m['id'] ?>'">Delete</button>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    <?php endif;?>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>Remaining</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if (empty($memberships)): ?>
+            <tr><td colspan="8" style="text-align: center;">No records found</td></tr>
+        <?php else: ?>
+            <?php foreach ($memberships as $m): ?>
+                <tr>
+                    <td><?= htmlspecialchars($m['name']) ?></td>
+                    <td><?= htmlspecialchars($m['email']) ?></td>
+                    <td><?= htmlspecialchars($m['phone']) ?></td>
+                    <td><?= date('m-d-Y', strtotime($m['start_date'])) ?></td>
+                    <td><?= date('m-d-Y', strtotime($m['end_date'])) ?></td>
+                    <td><?= $m['remaining'] ?></td>
+                    <td><?= $m['status'] ?></td>
+                    <td>
+                        <a href="membership_page.php?renew=<?= $m['id'] ?>">Add</a> |
+                        <button onclick="if(confirm('Delete this membership?')) window.location.href='process_membership.php?delete_id=<?= $m['id'] ?>'">Delete</button>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif;?>
+    </tbody>
 </table>
 
 <?php

@@ -23,14 +23,17 @@ $placeholder = 'Search by name';
 include 'components/search.php';
 ?>
 
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Date</th>
-        <th>Check-in Time</th>
-        <th>Checkout</th>
-        <th>Delete</th>
-    </tr>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Check-in Time</th>
+            <th>Checkout</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
     <?php if(empty($current_checkins)): ?>
         <tr>
             <td colspan="8" style="text-align: center;">No records found</td>
@@ -50,6 +53,7 @@ include 'components/search.php';
             </tr>
         <?php endforeach; ?>
     <?php endif; ?>
+    </tbody>
 </table>
 
 <?php

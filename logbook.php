@@ -17,37 +17,41 @@ $placeholder = 'Search by name';
 include 'components/search.php';
 ?>
 
-<table border="1">
-    <tr>
-        <th>Name</th>
-        <th>Date</th>
-        <th>Check-in</th>
-        <th>Check-out</th>
-        <th>Delete</th>
-    </tr>
-    <?php if (empty($past_checkins)): ?>
+<table>
+    <thead>
         <tr>
-            <td colspan="8" style="text-align: center;">No records found</td>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Check-in</th>
+            <th>Check-out</th>
+            <th>Delete</th>
         </tr>
-    <?php else: ?>
-        <?php foreach ($past_checkins as $c):
-            $checkin = new DateTimeImmutable($c['checkin_time']);
-            $checkout = new DateTimeImmutable($c['checkout_time']);
-        ?>
+    </thead>
+    <tbody>
+        <?php if (empty($past_checkins)): ?>
             <tr>
-                <td><?= htmlspecialchars($c['name']) ?></td>
-                <td><?= $checkin->format('m-d-Y') ?></td> <!-- mm-dd-yyyy -->
-                <td><?= $checkin->format('h:i A') ?></td> <!-- hh:mm AM/PM -->
-                <td><?= $checkout->format('h:i A') ?></td>
-                <td>
-                    <button
-                        onclick="if(confirm('Delete this record?')) window.location.href='delete_checkin.php?id=<?= $c['id'] ?>&from=logbook'">
-                        Delete
-                    </button>
-                </td>
+                <td colspan="8" style="text-align: center;">No records found</td>
             </tr>
-        <?php endforeach; ?>
-    <?php endif; ?>
+        <?php else: ?>
+            <?php foreach ($past_checkins as $c):
+                $checkin = new DateTimeImmutable($c['checkin_time']);
+                $checkout = new DateTimeImmutable($c['checkout_time']);
+            ?>
+                <tr>
+                    <td><?= htmlspecialchars($c['name']) ?></td>
+                    <td><?= $checkin->format('m-d-Y') ?></td> <!-- mm-dd-yyyy -->
+                    <td><?= $checkin->format('h:i A') ?></td> <!-- hh:mm AM/PM -->
+                    <td><?= $checkout->format('h:i A') ?></td>
+                    <td>
+                        <button
+                            onclick="if(confirm('Delete this record?')) window.location.href='delete_checkin.php?id=<?= $c['id'] ?>&from=logbook'">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </tbody>
 </table>
 <?php
 $content = ob_get_clean();
