@@ -5,39 +5,37 @@ include 'functions.php'; // for searchTable()
 // fetch table
 $searchTerm = $_GET['search'] ?? '';
 $current_checkins = searchTable($pdo, 'logbook', ['name'], 'checkout_time IS NULL', 'checkin_time DESC', $searchTerm);
+
+ob_start();
 ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>LIFT - Main</title>
-</head>
-<body>
-    <h1>Logging Integrated Fitness Tracking</h1>
+<form action="checkin_checkout.php" method="POST">
+    <input type="text" name="name" placeholder="Customer Name" required>
+    <button type="submit">Check In</button>
+</form>
 
-    <form action="checkin_checkout.php" method="POST">
-        <input type="text" name="name" placeholder="Customer Name" required>
-        <button type="submit">Check In</button>
-    </form>
+<h3>Check-Ins</h3>
 
-    <h2>Currently Checked-In</h2>
+<!-- search bar -->
+<?php
+$action = 'index.php';
+$placeholder = 'Search by name';
+include 'components/search.php';
+?>
 
-    <!-- search bar -->
-    <form method="GET" action="index.php" style="margin-bottom: 1em;">
-        <input type="text" name="search" placeholder="Search by name"
-               value="<?= htmlspecialchars($searchTerm) ?>">
-        <button type="submit">Search</button>
-        <a href="index.php"><button type="button">Reset</button></a>
-    </form>
-
-    <table border="1">
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Check-in Time</th>
+        <th>Checkout</th>
+        <th>Delete</th>
+    </tr>
+    <?php if(empty($current_checkins)): ?>
         <tr>
-            <th>Name</th>
-            <th>Date</th>
-            <th>Check-in Time</th>
-            <th>Checkout</th>
-            <th>Delete</th>
+            <td colspan="8" style="text-align: center;">No records found</td>
         </tr>
+    <?php else: ?>
         <?php foreach ($current_checkins as $c):
             $dt = new DateTimeImmutable($c['checkin_time']);
         ?>
@@ -51,10 +49,12 @@ $current_checkins = searchTable($pdo, 'logbook', ['name'], 'checkout_time IS NUL
                 </td>
             </tr>
         <?php endforeach; ?>
-    </table>
+    <?php endif; ?>
+</table>
 
-    <br>
-    <a href="logbook.php">View Logbook</a><br>
-    <a href="membership_page.php">Manage Memberships</a>
-</body>
-</html>
+<?php
+$content = ob_get_clean();
+$title = 'LIFT - Main';
+
+include 'components/layout.php';
+?>
