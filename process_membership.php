@@ -1,6 +1,6 @@
 <?php
-include 'dbcon.php';
-include 'functions.php';  // for getRemaningTime()
+include 'includes/dbcon.php';
+include 'includes/functions.php';  // for getRemaningTime()
 
 // process form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

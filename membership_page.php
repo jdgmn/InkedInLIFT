@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="css/modal.css">
 <?php
-include 'dbcon.php';
-include 'functions.php';  // for getRemainingTime(), searchTable()
+include 'includes/dbcon.php';
+include 'includes/functions.php';  // for getRemainingTime(), searchTable()
 
 // for editing members
 $editing = false;

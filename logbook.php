@@ -1,6 +1,6 @@
 <?php
-include 'dbcon.php';
-include 'functions.php'; // for searchTable()
+include 'includes/dbcon.php';
+include 'includes/functions.php'; // for searchTable()
 
 // fetch table, sorted by checkout time DESC
 $searchTerm = $_GET['search'] ?? '';
