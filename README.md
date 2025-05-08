@@ -43,7 +43,7 @@ Follow these instructions to run the system locally on your machine.
 4. Import the database:
    - Open [phpMyAdmin](http://localhost/phpmyadmin/).
    - Create a new database (e.g., `lift_db`).
-   - Import the provided SQL file (located in the `database` folder of this repository) into the database.
+   - Import the provided SQL file (`lift_db (current).sql`) into the database.
 5. Configure the connection:
    - Open the project folder and locate the `dbcon.php` file.
    - Update the database credentials to match your local setup:
