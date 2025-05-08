@@ -64,7 +64,6 @@ Follow these instructions to run the system locally on your machine.
 This project was built using the following technologies:
 - **PHP**: Backend development
 - **CSS**: Styling and layout
-- **Hack**: Enhancements for PHP capabilities
 - **MySQL**: Database management
 - **XAMPP**: Local server environment
 
