@@ -72,3 +72,28 @@ main {
     place-items: center;
 }
   
+
+
+table{
+    padding: 4px 2px;
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px;
+    overflow: hidden;
+}
+thead{
+    border-radius: 15px;
+}
+thead tr th{
+    background-color: hsl(209, 61%, 16%);
+    color: white;
+    padding: .5rem 1rem;
+}
+tbody tr{
+    background-color: transparent;
+    color: hsl(209, 61%, 16%);
+    border-bottom: 1px solid hsl(209, 61%, 16%);
+}
+td{
+    padding: .5rem 1rem;
+}

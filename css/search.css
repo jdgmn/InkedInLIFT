@@ -8,11 +8,12 @@
     border-radius: 4px;
     font-size: 16px;
     outline: none;
+    background: transparent;
 }
 
 .reset-button {
     position: absolute;
-    right: 100px; 
+    right: 120px; 
     top: 50%;
     transform: translateY(-50%);
     background: transparent;
