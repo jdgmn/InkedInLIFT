@@ -18,7 +18,7 @@ Our mission is to provide a reliable and user-friendly system that enhances the 
 This project was proudly developed by **Team Inkedin**:
 - Covacha, Erin Drew [@egwolk](https://github.com/egwolk)
 - De Guzman, Jonah Andre [@jdgmn](https://github.com/jdgmn)
-- Pablo, Lance Angelo [@aimgoinzain](https://github.com/aimgoinzain)
+- Pablo, Lance Angelo [@aimgoinzane](https://github.com/aimgoinzane)
 - Ragel, William Rap-El [@rap-el](https://github.com/rap-el)
 - Robles, Stephen Ezekiel [@tpen14](https://github.com/tpen14)
 
