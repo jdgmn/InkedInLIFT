@@ -35,3 +35,25 @@ nav{
     padding: 0;
     background: transparent;
 }
+
+/* dark mode */
+#toggle-dark-mode {
+    color: #324D67;
+    padding: 0;
+    margin: 0 0.5rem;
+    font-size: 1rem;
+    background: none;
+    border: none;
+}
+.dark-mode #toggle-dark-mode {
+    color: #9FBAD0;
+}
+.dark-mode nav{
+    background: #181A1B;
+}
+.dark-mode .logo{
+    color: #9FBAD0; 
+}
+.dark-mode .links a {
+    color: #9FBAD0;
+}

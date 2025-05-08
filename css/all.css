@@ -122,3 +122,23 @@ td{
 .single{
     justify-content: end;
 }
+
+/* dark mode */
+body.dark-mode {
+    background: #1E2022;
+    color: #CECAC3;
+}
+.dark-mode p {
+    color: #635C51;
+}
+.dark-mode thead tr th{
+    background-color: #0D2235;
+    color: #E8E6E3;
+}
+.dark-mode tbody tr{
+    color: #CECAC3;
+    border-bottom: 1px solid #635C51;
+}
+.dark-mode tbody tr:nth-child(even) {
+    background-color: #181A1B;
+} 

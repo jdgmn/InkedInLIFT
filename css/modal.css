@@ -33,3 +33,14 @@
     color: #333;
     cursor: pointer;
 }
+
+/* dark mode */
+.dark-mode .modal-content {
+    background-color: #181A1B;
+}
+.dark-mode .modal-input{
+    border-color: #3E4446;
+}
+.dark-mode .close-btn {
+    color: #C8C3BC;
+}
