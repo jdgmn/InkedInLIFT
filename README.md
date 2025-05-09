@@ -13,6 +13,15 @@ LIFT is a web-based application that helps gym owners and staff:
 Our mission is to provide a reliable and user-friendly system that enhances the fitness journey for both gym owners and their members.
 
 
+## ✨ Features
+
+- **Membership Management**: Add, update(add months/renew), and delete member details.
+- **Check-In/Check-Out System**: Log member and non-member visits with details for tracking.
+- **Database Integration**: Efficient storage and retrieval of member information.
+- **Responsive Design**: User-friendly and accessible on the web browser.
+- **Error Handling**: Includes validation and feedback for user inputs.
+
+
 ## 👥 Authors
 
 This project was proudly developed by **Team Inkedin**:
@@ -64,6 +73,7 @@ Follow these instructions to run the system locally on your machine.
 This project was built using the following technologies:
 - **PHP**: Backend development
 - **CSS**: Styling and layout
+- **JavaScript**: Interactive features and functionality
 - **MySQL**: Database management
 - **XAMPP**: Local server environment
 
