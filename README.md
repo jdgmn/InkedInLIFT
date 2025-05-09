@@ -20,6 +20,7 @@ Our mission is to provide a reliable and user-friendly system that enhances the 
 - **Database Integration**: Efficient storage and retrieval of member information.
 - **Responsive Design**: User-friendly and accessible on the web browser.
 - **Error Handling**: Includes validation and feedback for user inputs.
+- **Theme Options**: Dark and light mode to suit user preferences and accessibility.
 
 
 ## 👥 Authors
