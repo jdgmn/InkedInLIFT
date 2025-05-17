@@ -4,7 +4,7 @@ include 'includes/functions.php'; // for searchTable()
 
 // fetch table
 $searchTerm = $_GET['search'] ?? '';
-$current_checkins = searchTable($pdo, 'logbook', ['name'], 'checkout_time IS NULL', 'checkin_time DESC', $searchTerm);
+$current_checkins = searchTable($pdo, 'logbook', ['name'], 'checkout_time IS NULL', 'checkin_time ASC', $searchTerm);
 
 ob_start();
 ?>
