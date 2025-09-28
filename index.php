@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!-- CSS LINKS -->
 <link rel="stylesheet" href="css/modal.css">
 <link rel="stylesheet" href="css/autocom.css">
@@ -22,24 +21,10 @@ ob_start(); // start output buffer
 ?>
 
 <!-- page title -->
-=======
-<?php
-include 'includes/dbcon.php';
-include 'includes/functions.php'; // for searchTable()
-
-// fetch table
-$searchTerm = $_GET['search'] ?? '';
-$current_checkins = searchTable($pdo, 'logbook', ['name'], 'checkout_time IS NULL', 'checkin_time ASC', $searchTerm);
-
-ob_start();
-?>
-
->>>>>>> main
 <div class="container title">
     <h2>Check-Ins</h2>
 </div>
 
-<<<<<<< HEAD
 <!-- member modal -->
 <div class="modal" id="membership-modal">
     <div class="modal-content">
@@ -85,22 +70,10 @@ ob_start();
         <div class="comp-container">
             <input type="text" name="name" id="checkin-name" placeholder="Customer Name" autocomplete="off" required>
             <div id="autocomplete-list" class="autocomplete-items"></div>
-=======
-<div class="container actions">
-    <form action="checkin_checkout.php" method="POST">
-        <div class="comp-container">
-            <input type="text" name="name" placeholder="Customer Name" required>
->>>>>>> main
             <button type="submit" class="checkin">Check-in</button>
         </div>
     </form>
 
-<<<<<<< HEAD
-=======
-
-
-    <!-- search bar -->
->>>>>>> main
     <?php
     $action = 'index.php';
     $placeholder = 'Search by name';
@@ -108,17 +81,13 @@ ob_start();
     ?>
 </div>
 
-<<<<<<< HEAD
 <!-- check-ins table -->
-=======
->>>>>>> main
 <table>
     <thead>
         <tr>
             <th>Name</th>
             <th>Date</th>
             <th>Check-in Time</th>
-<<<<<<< HEAD
             <th colspan="3">Actions</th>
         </tr>
     </thead>
@@ -153,37 +122,10 @@ ob_start();
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?>
-=======
-            <th>Checkout</th>
-            <th>Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-    <?php if(empty($current_checkins)): ?>
-        <tr>
-            <td colspan="5">No records found</td>
-        </tr>
-    <?php else: ?>
-        <?php foreach ($current_checkins as $c):
-            $dt = new DateTimeImmutable($c['checkin_time']);
-        ?>
-            <tr>
-                <td><?= htmlspecialchars($c['name']) ?></td>
-                <td><?= $dt->format('m-d-Y') ?></td> <!-- mm-dd-yyyy -->
-                <td><?= $dt->format('h:i A') ?></td> <!-- hh:mm AM/PM -->
-                <td><a href="checkin_checkout.php?id=<?= $c['id'] ?>"><button class="checkout">Check-out</button></a></td>
-                <td>
-                    <button class="delete" onclick="if(confirm('Delete this record?')) window.location.href='delete_checkin.php?id=<?= $c['id'] ?>&from=index'">Delete</button>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-    <?php endif; ?>
->>>>>>> main
     </tbody>
 </table>
 
 <?php
-<<<<<<< HEAD
 $content = ob_get_clean(); // buffer clear
 $title = 'LIFT - Main';
 
@@ -254,10 +196,3 @@ include 'components/layout.php';
         });
     });
 </script>
-=======
-$content = ob_get_clean();
-$title = 'LIFT - Main';
-
-include 'components/layout.php';
-?>
->>>>>>> main
