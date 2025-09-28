@@ -1,0 +1,144 @@
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Open Sans", sans-serif;
+  background: hsl(210, 36%, 96%);
+  color: hsl(209, 61%, 16%);
+  line-height: 1.5;
+  font-size: 0.875rem;
+}
+ul {
+  list-style-type: none;
+}
+a {
+  text-decoration: none;
+}
+
+h1 {
+    font-size: 4rem;
+}
+h2 {
+    font-size: 2.5rem;
+}
+h3 {
+    font-size: 1.75rem;
+}
+h4 {
+    font-size: 1rem;
+}
+body {
+    font-size: 1rem;
+}
+h1,
+h2,
+h3,
+h4 {
+    line-height: 1;
+    letter-spacing: 0.1rem;
+    text-transform: capitalize;
+    margin-bottom: 0.75rem;
+    font-family: "Roboto", sans-serif;
+}
+p {
+    margin-bottom: 1.25rem;
+    color: hsl(210, 22%, 49%);
+}
+
+
+.section {
+    padding: 2rem 0;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+    height: 100%;
+}
+  
+.section-center {
+    height: 100%;
+    width: 90vw;
+    margin: 0 auto;
+}
+main {
+    min-height: calc(100vh - 3.5rem);
+    display: grid;
+    place-items: center;
+}
+  
+
+
+table{
+    padding: 4px 2px;
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px;
+    overflow: hidden;
+    table-layout: fixed;
+    text-align: center;
+}
+
+thead{
+    border-radius: 15px;
+}
+thead tr th{
+    background-color: hsl(209, 61%, 16%);
+    color: white;
+    padding: .5rem 1rem;
+}
+tbody tr{
+    background-color: transparent;
+    color: hsl(209, 61%, 16%);
+    border-bottom: 1px solid hsl(210, 22%, 49%);
+}
+tbody tr:nth-child(even) {
+    background-color: white; 
+}
+
+tbody tr:nth-child(odd) {
+    background-color: transparent; 
+}
+td{
+    padding: .5rem 1rem;
+    word-wrap:break-word;
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+.title{
+    justify-content: center;
+}
+.actions{
+    padding: 1rem 0 ;
+}
+.single{
+    justify-content: end;
+}
+
+/* dark mode */
+body.dark-mode {
+    background: #1E2022;
+    color: #CECAC3;
+}
+.dark-mode p {
+    color: #635C51;
+}
+.dark-mode thead tr th{
+    background-color: #0D2235;
+    color: #E8E6E3;
+}
+.dark-mode tbody tr{
+    color: #CECAC3;
+    border-bottom: 1px solid #635C51;
+}
+.dark-mode tbody tr:nth-child(even) {
+    background-color: #181A1B;
+} 
