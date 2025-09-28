@@ -135,6 +135,7 @@ include 'components/layout.php';
 <!-- JAVASCRIPT STARTS HERE -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // modal script
         const newMemberBtn = document.getElementById('new-member-btn');
         const modal = document.getElementById('membership-modal');
         const closeModal = document.getElementById('close-modal');
@@ -193,6 +194,43 @@ include 'components/layout.php';
             monthsContainer.style.display = 'block';
             modalHeading.textContent = 'Add New Member';
             setMembershipTypeDefault('member');
+        });
+
+        // autocomplete script
+        const input = document.getElementById('checkin-name');
+        const list = document.getElementById('autocomplete-list');
+
+        input.addEventListener('input', function() {
+            const val = this.value.trim();
+
+            list.innerHTML = '';
+            if (!val) return;
+
+            fetch(`search_members.php?term=${encodeURIComponent(val)}`)
+                .then(res => res.json())
+                .then(data => {
+                    list.innerHTML = '';
+                    data.forEach(name => {
+                        const item = document.createElement('div');
+                        item.textContent = name;
+                        item.classList.add('autocomplete-item');
+                        item.addEventListener('click', () => {
+                            input.value = name;
+                            list.innerHTML = '';
+                        });
+                        list.appendChild(item);
+                    });
+                })
+                .catch(err => {
+                    console.error('Autocomplete fetch error:', err);
+                });
+        });
+
+        // hide autocomplete on outside click
+        document.addEventListener('click', function(e) {
+            if (!input.contains(e.target) && !list.contains(e.target)) {
+                list.innerHTML = '';
+            }
         });
     });
 </script>
