@@ -13,7 +13,7 @@
                     <a href="logbook.php">Logbook</a><br>
                 </li>
                 <li>
-                    <a href="membership_page.php">Memberships</a>
+                    <a href="membership_page.php">Clients</a>
                 </li>
                 <li>
                     <button id="toggle-dark-mode" aria-label="Toggle dark mode">

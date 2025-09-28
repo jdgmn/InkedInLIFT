@@ -3,14 +3,25 @@ const toggleButton = document.getElementById("toggle-dark-mode");
 const icon = document.getElementById("dark-mode-icon");
 
 if (toggleButton && icon) {
-  const savedDarkMode = localStorage.getItem("dark-mode") === "enabled";
-  const updateDarkMode = (isDarkMode) => {
-    body.classList.toggle("dark-mode", isDarkMode);
-    localStorage.setItem("dark-mode", isDarkMode ? "enabled" : "disabled");
-    icon.classList.replace(isDarkMode ? "bi-moon" : "bi-sun", isDarkMode ? "bi-sun" : "bi-moon");
+  const isDarkModeEnabled = localStorage.getItem("dark-mode") === "enabled";
+
+  const updateDarkMode = (enable) => {
+    body.classList.toggle("dark-mode", enable);
+    localStorage.setItem("dark-mode", enable ? "enabled" : "disabled");
+
+    // swap icon based on mode
+    if (enable) {
+      icon.classList.replace("bi-moon", "bi-sun");
+    } else {
+      icon.classList.replace("bi-sun", "bi-moon");
+    }
   };
 
-  updateDarkMode(savedDarkMode);
+  // initialize based on saved preference
+  updateDarkMode(isDarkModeEnabled);
 
-  toggleButton.addEventListener("click", () => updateDarkMode(!body.classList.contains("dark-mode")));
+  // toggle dark mode on click
+  toggleButton.addEventListener("click", () => {
+    updateDarkMode(!body.classList.contains("dark-mode"));
+  });
 }
