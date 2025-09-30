@@ -47,18 +47,16 @@ ob_start(); // start output buffer
     <h2>Client List</h2>
 </div>
 
-<?
+<?php
 // defining $editing
-if (!isset($editing)) {
-    $editing = false;
-}
+$editing = isset($_GET['edit']) ? true : false;
 ?>
 
 <!-- modal for add / renew membership -->
 <div class="modal" id="membership-modal">
     <div class="modal-content">
         <span class="close-btn" id="close-modal">&times;</span>
-        <h3 id="modal-heading"><?= isset($editing) && $editing ? 'Renew Membership' : 'Add New Member' ?></h3>
+        <h3 id="modal-heading"><?= $editing && $editing ? 'Renew Membership' : 'Add New Member' ?></h3>
         <form method="POST" action="process_membership.php">
             <input type="hidden" name="edit_id" value="<?= $editing ? htmlspecialchars($edit_member['id']) : '' ?>">
 
