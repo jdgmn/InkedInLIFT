@@ -25,6 +25,13 @@ ob_start(); // start output buffer
     <h2>Check-Ins</h2>
 </div>
 
+<?
+// defining $editing
+if (!isset($editing)) {
+    $editing = false;
+}
+?>
+
 <!-- member modal -->
 <div class="modal" id="membership-modal">
     <div class="modal-content">

@@ -47,6 +47,13 @@ ob_start(); // start output buffer
     <h2>Client List</h2>
 </div>
 
+<?
+// defining $editing
+if (!isset($editing)) {
+    $editing = false;
+}
+?>
+
 <!-- modal for add / renew membership -->
 <div class="modal" id="membership-modal">
     <div class="modal-content">
