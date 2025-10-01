@@ -56,7 +56,7 @@ $editing = isset($_GET['edit']) ? true : false;
 <div class="modal" id="membership-modal">
     <div class="modal-content">
         <span class="close-btn" id="close-modal">&times;</span>
-        <h3 id="modal-heading"><?= $editing && $editing ? 'Renew Membership' : 'Add New Member' ?></h3>
+        <h3 id="modal-heading"><?= $editing ? 'Renew Membership' : 'Add New Member' ?></h3>
         <form method="POST" action="process_membership.php">
             <input type="hidden" name="edit_id" value="<?= $editing ? htmlspecialchars($edit_member['id']) : '' ?>">
 

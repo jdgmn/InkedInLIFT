@@ -8,14 +8,25 @@ include 'includes/dbcon.php';
 include 'includes/functions.php'; // searchTable()
 
 $searchTerm = $_GET['search'] ?? '';
-$current_checkins = searchTable(
-    $pdo,
-    'logbook',
-    ['name'],
-    'checkout_time IS NULL',
-    'checkin_time ASC',
-    $searchTerm
-);
+
+$sql = "
+    SELECT logbook.*, memberships.name AS member_name
+    FROM logbook
+    JOIN memberships ON logbook.membership_id = memberships.id
+    WHERE logbook.checkout_time IS NULL
+";
+
+$params = [];
+if ($searchTerm !== '') {
+    $sql .= " AND memberships.name LIKE ?";
+    $params[] = "%$searchTerm%";
+}
+
+$sql .= " ORDER BY logbook.checkin_time ASC";
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
+$current_checkins = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ob_start(); // start output buffer
 ?>
@@ -34,7 +45,7 @@ $editing = isset($_GET['edit']) ? true : false;
 <div class="modal" id="membership-modal">
     <div class="modal-content">
         <span class="close-btn" id="close-modal">&times;</span>
-        <h3 id="modal-heading"><?= $editing && $editing ? 'Renew Membership' : 'Add New Member' ?></h3>
+        <h3 id="modal-heading"><?= $editing ? 'Renew Membership' : 'Add New Member' ?></h3>
         <form method="POST" action="process_membership.php" id="membership-form">
             <input type="hidden" name="edit_id" value="<?= $editing ? htmlspecialchars($edit_member['id']) : '' ?>">
 
@@ -71,9 +82,10 @@ $editing = isset($_GET['edit']) ? true : false;
         <button class="checkin" id="new-member-btn">New Member</button>
     </div>
 
-    <form action="checkin_checkout.php" method="POST">
+    <form action="checkin_checkout.php" method="POST" id="checkin-form">
         <div class="comp-container">
-            <input type="text" name="name" id="checkin-name" placeholder="Customer Name" autocomplete="off" required>
+            <input type="text" id="checkin-name" placeholder="Customer Name" autocomplete="off" required>
+            <input type="hidden" name="membership_id" id="checkin-membership-id" required>
             <div id="autocomplete-list" class="autocomplete-items"></div>
             <button type="submit" class="checkin">Check-in</button>
         </div>
@@ -106,7 +118,7 @@ $editing = isset($_GET['edit']) ? true : false;
                 $dt = new DateTimeImmutable($c['checkin_time']);
             ?>
                 <tr>
-                    <td><?= htmlspecialchars($c['name']) ?></td>
+                    <td><?= htmlspecialchars($c['member_name']) ?></td>
                     <td><?= $dt->format('m-d-Y') ?></td>
                     <td><?= $dt->format('h:i A') ?></td>
                     <td>
@@ -115,9 +127,10 @@ $editing = isset($_GET['edit']) ? true : false;
                         </a>
                     </td>
                     <td>
-                        <a href="membership_page.php?search=<?= urlencode($c['name']) ?>">
+                        <a href="membership_page.php?id=<?= $c['membership_id'] ?>">
                             <button class="view">View</button>
                         </a>
+
                     </td>
                     <td>
                         <button class="delete" onclick="if(confirm('Delete this record?')) window.location.href='delete_checkin.php?id=<?= $c['id'] ?>&from=index'">
@@ -140,15 +153,62 @@ include 'components/layout.php';
 <!-- JAVASCRIPT STARTS HERE -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // modal script
+        // --- AUTOCOMPLETE FOR CHECK-IN ---
+        const input = document.getElementById('checkin-name');
+        const hiddenInput = document.getElementById('checkin-membership-id');
+        const list = document.getElementById('autocomplete-list');
+        const form = document.getElementById('checkin-form');
+
+        input.addEventListener('input', () => {
+            const val = input.value.trim();
+            hiddenInput.value = ''; // reset membership ID
+
+            if (!val) {
+                list.innerHTML = '';
+                return;
+            }
+
+            fetch(`search_members.php?term=${encodeURIComponent(val)}`)
+                .then(res => res.json())
+                .then(data => {
+                    list.innerHTML = '';
+                    data.forEach(item => {
+                        const div = document.createElement('div');
+                        div.textContent = item.name;
+                        div.classList.add('autocomplete-item');
+                        div.addEventListener('click', () => {
+                            input.value = item.name;
+                            hiddenInput.value = item.id;
+                            list.innerHTML = '';
+                        });
+                        list.appendChild(div);
+                    });
+                })
+                .catch(console.error);
+        });
+
+        document.addEventListener('click', e => {
+            if (!input.contains(e.target) && !list.contains(e.target)) {
+                list.innerHTML = '';
+            }
+        });
+
+        form.addEventListener('submit', e => {
+            if (!hiddenInput.value) {
+                e.preventDefault();
+                alert('Please select a valid member from the list.');
+            }
+        });
+
+        // --- MODAL SCRIPT FOR MEMBERSHIP ---
         const newMemberBtn = document.getElementById('new-member-btn');
         const modal = document.getElementById('membership-modal');
         const closeModal = document.getElementById('close-modal');
-        const form = modal.querySelector('#membership-form');
+        const memberForm = document.getElementById('membership-form');
         const newMemberFields = document.getElementById('new-member-fields');
         const modalHeading = document.getElementById('modal-heading');
-        const monthsInput = form.querySelector('input[name="months"]');
-        const membershipTypeRadios = form.querySelectorAll('input[name="membership_type"]');
+        const monthsInput = memberForm.querySelector('input[name="months"]');
+        const membershipTypeRadios = memberForm.querySelectorAll('input[name="membership_type"]');
         const monthsContainer = document.getElementById('months-container');
 
         function getSelectedMembershipType() {
@@ -182,8 +242,8 @@ include 'components/layout.php';
         });
 
         newMemberBtn.addEventListener('click', () => {
-            form.reset();
-            form.querySelector('input[name="edit_id"]').value = '';
+            memberForm.reset();
+            memberForm.querySelector('input[name="edit_id"]').value = '';
             newMemberFields.style.display = 'block';
             monthsContainer.style.display = 'block';
             modalHeading.textContent = 'Add New Member';
@@ -193,49 +253,12 @@ include 'components/layout.php';
 
         closeModal.addEventListener('click', () => {
             modal.style.display = 'none';
-            form.reset();
-            form.querySelector('input[name="edit_id"]').value = '';
+            memberForm.reset();
+            memberForm.querySelector('input[name="edit_id"]').value = '';
             newMemberFields.style.display = 'block';
             monthsContainer.style.display = 'block';
             modalHeading.textContent = 'Add New Member';
             setMembershipTypeDefault('member');
-        });
-
-        // autocomplete script
-        const input = document.getElementById('checkin-name');
-        const list = document.getElementById('autocomplete-list');
-
-        input.addEventListener('input', function() {
-            const val = this.value.trim();
-
-            list.innerHTML = '';
-            if (!val) return;
-
-            fetch(`search_members.php?term=${encodeURIComponent(val)}`)
-                .then(res => res.json())
-                .then(data => {
-                    list.innerHTML = '';
-                    data.forEach(name => {
-                        const item = document.createElement('div');
-                        item.textContent = name;
-                        item.classList.add('autocomplete-item');
-                        item.addEventListener('click', () => {
-                            input.value = name;
-                            list.innerHTML = '';
-                        });
-                        list.appendChild(item);
-                    });
-                })
-                .catch(err => {
-                    console.error('Autocomplete fetch error:', err);
-                });
-        });
-
-        // hide autocomplete on outside click
-        document.addEventListener('click', function(e) {
-            if (!input.contains(e.target) && !list.contains(e.target)) {
-                list.innerHTML = '';
-            }
         });
     });
 </script>

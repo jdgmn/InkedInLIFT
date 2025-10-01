@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Apr 30, 2025 at 06:25 PM
+-- Host: localhost
+-- Generation Time: Oct 01, 2025 at 02:26 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `logbook` (
   `id` int(11) NOT NULL,
-  `name` varchar(100) NOT NULL,
+  `membership_id` int(11) NOT NULL,
   `checkin_time` datetime NOT NULL,
   `checkout_time` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -58,7 +58,8 @@ CREATE TABLE `memberships` (
 -- Indexes for table `logbook`
 --
 ALTER TABLE `logbook`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `membership_id` (`membership_id`);
 
 --
 -- Indexes for table `memberships`
@@ -81,6 +82,16 @@ ALTER TABLE `logbook`
 --
 ALTER TABLE `memberships`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `logbook`
+--
+ALTER TABLE `logbook`
+  ADD CONSTRAINT `logbook_ibfk_1` FOREIGN KEY (`membership_id`) REFERENCES `memberships` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
