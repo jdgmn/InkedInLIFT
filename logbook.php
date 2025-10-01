@@ -7,14 +7,24 @@ include 'includes/functions.php'; // searchTable()
 
 // fetch past check-ins (sorted by checkout_time DESC)
 $searchTerm = $_GET['search'] ?? '';
-$past_checkins = searchTable(
-    $pdo,
-    'logbook',
-    ['name'],
-    'checkout_time IS NOT NULL',
-    'checkout_time DESC',
-    $searchTerm
-);
+$params = [];
+$sql = "
+    SELECT logbook.*, memberships.name AS member_name
+    FROM logbook
+    JOIN memberships ON logbook.membership_id = memberships.id
+    WHERE logbook.checkout_time IS NOT NULL
+";
+
+if (!empty($searchTerm)) {
+    $sql .= " AND memberships.name LIKE ?";
+    $params[] = "%$searchTerm%";
+}
+
+$sql .= " ORDER BY logbook.checkout_time DESC";
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
+$past_checkins = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 ob_start(); // start output buffer
 ?>
@@ -41,6 +51,7 @@ ob_start(); // start output buffer
             <th>Date</th>
             <th>Check-in</th>
             <th>Check-out</th>
+            <th>Duration</th>
             <th colspan="2">Actions</th>
         </tr>
     </thead>
@@ -55,12 +66,18 @@ ob_start(); // start output buffer
                 $checkout = new DateTimeImmutable($c['checkout_time']);
             ?>
                 <tr>
-                    <td><?= htmlspecialchars($c['name']) ?></td>
+                    <td><?= htmlspecialchars($c['member_name']) ?></td>
                     <td><?= $checkin->format('m-d-Y') ?></td> <!-- mm-dd-yyyy -->
                     <td><?= $checkin->format('h:i A') ?></td> <!-- hh:mm AM/PM -->
                     <td><?= $checkout->format('h:i A') ?></td>
                     <td>
-                        <a href="membership_page.php?search=<?= urlencode($c['name']) ?>">
+                        <?php
+                        $duration = $checkin->diff($checkout);
+                        echo $duration->format('%h hr %i min');
+                        ?>
+                    </td>
+                    <td>
+                        <a href="membership_page.php?search=<?= urlencode($c['member_name']) ?>">
                             <button class="view">View</button>
                         </a>
                     </td>
