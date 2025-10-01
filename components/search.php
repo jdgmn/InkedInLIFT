@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="css/search.css?v=<?php echo time(); ?>">
+<link rel="stylesheet" type="text/css" href="/InkedInLIFT/css/search.css?v=<?php echo time(); ?>">
 <form method="GET" action="<?= htmlspecialchars($action ?? '') ?>">
    <div class="comp-container">
         <input type="text" name="search" id="search-input" placeholder="<?= htmlspecialchars($placeholder ?? 'Search...') ?>"

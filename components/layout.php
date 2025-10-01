@@ -2,7 +2,7 @@
 <html>
 <head>
     <title><?= $title ?? 'LIFT' ?></title>
-    <link rel="stylesheet" type="text/css" href="css/all.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" type="text/css" href="/InkedInLIFT/css/all.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <?php include 'components/navbar.php'; ?> 

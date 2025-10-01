@@ -1,4 +1,4 @@
-    <link rel="stylesheet" type="text/css" href="css/navbar.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" type="text/css" href="/InkedInLIFT/css/navbar.css?v=<?php echo time(); ?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <nav>
         <div class="nav-center">
@@ -19,7 +19,7 @@
                     <button id="toggle-dark-mode" aria-label="Toggle dark mode">
                         <i id="dark-mode-icon" class="bi bi-moon"></i>
                     </button>
-                    <script src="dark-mode.js"></script>
+                    <script src="/InkedInLIFT/scripts/dark-mode.js"></script>
                 </li>
             </ul>
         </div>
