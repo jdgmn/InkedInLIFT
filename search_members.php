@@ -10,9 +10,9 @@ if ($term === '') {
     exit;
 }
 
-$stmt = $pdo->prepare("SELECT name FROM memberships WHERE name LIKE ? ORDER BY name ASC LIMIT 10");
+$stmt = $pdo->prepare("SELECT id, name FROM memberships WHERE name LIKE ? ORDER BY name ASC LIMIT 10");
 $stmt->execute(["%{$term}%"]);
 
-$results = $stmt->fetchAll(PDO::FETCH_COLUMN);
+$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 echo json_encode($results);
