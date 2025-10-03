@@ -130,6 +130,9 @@
 
                 setMembershipTypeDefault('member');
 
+                // hide member type buttons
+                document.getElementById('membership-type-group').style.display = 'none';
+
                 // clear URL params (solution to an encountered bug)
                 const url = new URL(window.location);
                 url.searchParams.delete('renew');
