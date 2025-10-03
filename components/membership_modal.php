@@ -23,11 +23,11 @@ $edit_member = $edit_member ?? null;
                     value="<?= $editing ? htmlspecialchars($edit_member['phone']) : '' ?>">
             </div>
 
-            <div id="membership-type-group" style="margin: 10px 0;">
+            <div id="membership-type-group">
                 <label>
                     <input type="radio" name="membership_type" value="member" checked> Member
                 </label>
-                <label style="margin-left: 15px;">
+                <label>
                     <input type="radio" name="membership_type" value="non-member"> Non-member
                 </label>
             </div>

@@ -14,6 +14,7 @@
 .modal-input{
     margin-bottom: 1rem;
 }
+
 .modal-content {
     background-color: white;
     padding: 20px;
@@ -34,13 +35,50 @@
     cursor: pointer;
 }
 
+#membership-type-group {
+    margin: 10px 0;
+    display: flex;
+    gap: 15px;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+#membership-type-group label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 14px;
+    text-wrap: nowrap;
+}
+
+#membership-type-group input[type="radio"] {
+    margin-right: 8px;
+    margin-left: 0;
+}
+
+.modal-input[type="number"] {
+    -moz-appearance: textfield; /* Firefox */
+}
+
+.modal-input[type="number"]::-webkit-outer-spin-button,
+.modal-input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none; /* Chrome, Safari, Edge */
+    margin: 0;
+}
+
 /* dark mode */
 .dark-mode .modal-content {
     background-color: #181A1B;
 }
+
 .dark-mode .modal-input{
     border-color: #3E4446;
 }
+
 .dark-mode .close-btn {
+    color: #C8C3BC;
+}
+
+.dark-mode #membership-type-group label {
     color: #C8C3BC;
 }
