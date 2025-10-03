@@ -20,6 +20,7 @@
 
             if (!val) {
                 list.innerHTML = '';
+                list.classList.remove('show'); 
                 return;
             }
 
@@ -27,17 +28,23 @@
                 .then(res => res.json())
                 .then(data => {
                     list.innerHTML = '';
-                    data.forEach(item => {
-                        const div = document.createElement('div');
-                        div.textContent = item.name;
-                        div.classList.add('autocomplete-item');
-                        div.addEventListener('click', () => {
-                            input.value = item.name;
-                            hiddenInput.value = item.id;
-                            list.innerHTML = '';
+                    if (data.length > 0) {
+                        list.classList.add('show');
+                        data.forEach(item => {
+                            const div = document.createElement('div');
+                            div.textContent = item.name;
+                            div.classList.add('autocomplete-item');
+                            div.addEventListener('click', () => {
+                                input.value = item.name;
+                                hiddenInput.value = item.id;
+                                list.innerHTML = '';
+                                list.classList.remove('show');
+                            });
+                            list.appendChild(div);
                         });
-                        list.appendChild(div);
-                    });
+                    } else {
+                        list.classList.remove('show');
+                    }
                 })
                 .catch(console.error);
         });
@@ -45,6 +52,7 @@
         document.addEventListener('click', e => {
             if (!input.contains(e.target) && !list.contains(e.target)) {
                 list.innerHTML = '';
+                list.classList.remove('show');
             }
         });
 
