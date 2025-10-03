@@ -66,6 +66,9 @@
                 submitBtn.textContent = 'Add Account';
                 modal.style.display = 'flex';
                 setMembershipTypeDefault('member');
+
+                // show member type buttons
+                document.getElementById('membership-type-group').style.display = 'block';
             });
         }
 
@@ -89,6 +92,9 @@
 
                 // for renew, assume member
                 setMembershipTypeDefault('member');
+
+                // hide member type buttons
+                document.getElementById('membership-type-group').style.display = 'none';
             });
         });
 
@@ -123,6 +129,9 @@
                 submitBtn.textContent = 'Add Account';
 
                 setMembershipTypeDefault('member');
+
+                // show member type buttons
+                document.getElementById('membership-type-group').style.display = 'block';
 
                 // clear URL params (solution to an encountered bug)
                 const url = new URL(window.location);
